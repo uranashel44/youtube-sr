@@ -140,13 +140,13 @@ class YouTube {
      * @param url Video url to parse
      * @param requestOptions Request options
      */
-    static async getVideo(url: string | Video, requestOptions?: RequestInit): Promise<Video> {
+    static async getVideo(url: string | Video, hl?: string, requestOptions?: RequestInit): Promise<Video> {
         if (!url) throw new Error("Missing video url");
         if (url instanceof Video) url = url.url;
         const isValid = YouTube.validate(url, "VIDEO");
         if (!isValid) throw new Error("Invalid video url");
 
-        const html = await Util.getHTML(`${url}&hl=${requestOptions?.hl ? requestOptions?.hl : "en"}`, requestOptions);
+        const html = await Util.getHTML(`${url}&hl=${hl ? hl : "en"}`, requestOptions);
         return Util.getVideo(html);
     }
 
