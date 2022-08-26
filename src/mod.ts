@@ -125,13 +125,13 @@ class YouTube {
      * @param {number} [options.limit=100] Playlist video limit
      * @param {RequestInit} [options.requestOptions] Request Options
      */
-    static async getPlaylist(url: string, options?: PlaylistOptions): Promise<Playlist> {
+    static async getPlaylist(url: string, hl?: string, options?: PlaylistOptions): Promise<Playlist> {
         if (!options) options = { limit: 100, requestOptions: {} };
         if (!url || typeof url !== "string") throw new Error(`Expected playlist url, received ${typeof url}!`);
         Util.validatePlaylist(url);
         url = Util.getPlaylistURL(url);
 
-        const html = await Util.getHTML(`${url}&hl=en`, options && options.requestOptions);
+        const html = await Util.getHTML(`${url}&hl=${hl ?? "en"}`, options && options.requestOptions);
         return Util.getPlaylist(html, options && options.limit);
     }
 
@@ -154,7 +154,7 @@ class YouTube {
      * Fetches homepage videos
      */
     static async homepage(hl?: string): Promise<Video[]> {
-        const html = await Util.getHTML("https://www.youtube.com?hl=" + hl ? hl : "en");
+        const html = await Util.getHTML("https://www.youtube.com?hl=" + (hl ? hl : "en"));
         return Util.parseHomepage(html);
     }
 
@@ -166,7 +166,7 @@ class YouTube {
     }
 
     static async trending(hl?: string): Promise<Video[]> {
-        const html = await Util.getHTML("https://www.youtube.com/feed/explore?hl=" + hl ? hl : "en");
+        const html = await Util.getHTML("https://www.youtube.com/feed/explore?hl=" + (hl ? hl : "en"));
         let json;
 
         try {
