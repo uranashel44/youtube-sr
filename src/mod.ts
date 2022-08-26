@@ -33,6 +33,7 @@ export interface SearchOptions {
     type?: "video" | "channel" | "playlist" | "all" | "film";
     requestOptions?: RequestInit;
     safeSearch?: boolean;
+    hl?: string;
 }
 
 export interface PlaylistOptions {
@@ -82,8 +83,9 @@ class YouTube {
         } catch {
             // fallback
             const filter = options.type === "all" ? "" : `&sp=${Util.filter(options.type)}`;
+            const hl = options?.hl ? options?.hl : "en"
 
-            const url = `https://youtube.com/results?search_query=${encodeURIComponent(query.trim()).replace(/%20/g, "+")}&hl=en${filter}`;
+            const url = `https://youtube.com/results?search_query=${encodeURIComponent(query.trim()).replace(/%20/g, "+")}&hl=${hl}${filter}`;
 
             const html = await Util.getHTML(url, requestOptions);
             return Util.parseSearchResult(html, options);
@@ -144,15 +146,15 @@ class YouTube {
         const isValid = YouTube.validate(url, "VIDEO");
         if (!isValid) throw new Error("Invalid video url");
 
-        const html = await Util.getHTML(`${url}&hl=en`, requestOptions);
+        const html = await Util.getHTML(`${url}&hl=${requestOptions?.hl ? requestOptions?.hl : "en"}`, requestOptions);
         return Util.getVideo(html);
     }
 
     /**
      * Fetches homepage videos
      */
-    static async homepage(): Promise<Video[]> {
-        const html = await Util.getHTML("https://www.youtube.com?hl=en");
+    static async homepage(hl?: string): Promise<Video[]> {
+        const html = await Util.getHTML("https://www.youtube.com?hl=" + hl ? hl : "en");
         return Util.parseHomepage(html);
     }
 
@@ -163,8 +165,8 @@ class YouTube {
         return Util.fetchInnerTubeKey();
     }
 
-    static async trending(): Promise<Video[]> {
-        const html = await Util.getHTML("https://www.youtube.com/feed/explore?hl=en");
+    static async trending(hl?: string): Promise<Video[]> {
+        const html = await Util.getHTML("https://www.youtube.com/feed/explore?hl=" + hl ? hl : "en");
         let json;
 
         try {
