@@ -261,16 +261,3 @@ Used to validate url/id.
   }
 ]
 ```
-
-# Similar Packages
-- **[youtube-ext](https://npmjs.com/package/youtube-ext)** YouTube Download, YouTube Search
-- **[ytsr](https://npmjs.com/package/ytsr)** YouTube Search
-- **[ytpl](https://npmjs.com/package/ytpl)** YouTube Playlist
-- **[ytdl-core](https://npmjs.com/package/ytdl-core)** YouTube Download
-
-# Testing website
-- Source **[https://github.com/DevAndromeda/simple-youtube-clone](https://github.com/DevAndromeda/simple-youtube-clone)**
-- Preview **[https://simple-youtube-clone.vercel.app](https://simple-youtube-clone.vercel.app)**
-
-# Help and Support
-Join my discord server **[https://discord.gg/CR8JxrxSwr](https://discord.gg/CR8JxrxSwr)**

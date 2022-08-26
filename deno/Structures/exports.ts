@@ -28,13 +28,4 @@ import Playlist from "./Playlist.ts";
 import Video, { VideoStreamingData, VideoStreamingFormat, VideoStreamingFormatAdaptive } from "./Video.ts";
 import Thumbnail from "./Thumbnail.ts";
 
-export {
-    Channel,
-    ChannelIconInterface,
-    Video,
-    Playlist,
-    Thumbnail,
-    VideoStreamingData,
-    VideoStreamingFormat,
-    VideoStreamingFormatAdaptive
-};
+export { Channel, ChannelIconInterface, Video, Playlist, Thumbnail, VideoStreamingData, VideoStreamingFormat, VideoStreamingFormatAdaptive };
